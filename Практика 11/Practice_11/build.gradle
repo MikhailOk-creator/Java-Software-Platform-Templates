@@ -1,0 +1,61 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.5'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'ru.rtu_mirea'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    manifest {
+        attributes'Main-Class': 'ru.rtu_mirea.practice_11.Practice11Application'
+    }
+    finalizedBy{
+        MakeJar
+    }
+}
+
+task MakeJar(type:Copy) {
+    from jar
+    into projectDir
+    finalizedBy{
+        BuildDocker
+    }
+}
+
+task BuildDocker(type: Exec) {
+    workingDir projectDir
+    commandLine "docker", "build", "--build-arg", "JAR_FILE=build/libs/*.jar", "-t", "javapp", "."
+    finalizedBy {
+        RunDocker
+    }
+}
+
+task RunDocker(type: Exec) {
+    commandLine "docker", "run", "javapp"
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
