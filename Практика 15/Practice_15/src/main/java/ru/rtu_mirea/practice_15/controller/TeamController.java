@@ -18,17 +18,17 @@ public class TeamController {
         service.addTeam(team);
     }
 
-    @GetMapping("/manufactures")
+    @GetMapping("/teams")
     public List<Team> getAll() {
         return service.getTeams();
     }
 
-    @GetMapping("/manufacture/{id}")
+    @GetMapping("/team/{id}")
     public List<Team> get(@PathVariable UUID id) {
         return service.getTeam(id);
     }
 
-    @DeleteMapping("/manufacture/{id}")
+    @DeleteMapping("/team/{id}")
     public void delete(@PathVariable UUID id) {
         service.deleteTeam(id);
     }
