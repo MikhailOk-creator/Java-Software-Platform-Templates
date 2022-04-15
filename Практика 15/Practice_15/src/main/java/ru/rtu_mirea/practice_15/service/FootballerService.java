@@ -42,9 +42,9 @@ public class FootballerService {
         return session.createQuery("select f from Footballer f", Footballer.class).list();
     }
 
-    public Footballer getFootballer(UUID id) {
+    /*public Footballer getFootballer(String first_name, String last_name) {
         return session.createQuery("select f from Footballer f where f.id = '" + id + "'", Footballer.class).getSingleResult();
-    }
+    }*/
 
     public void deleteFootballer(UUID id) {
 

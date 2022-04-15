@@ -25,7 +25,7 @@ public class Config {
     public LocalSessionFactoryBean sessionFactory(DataSource dataSource){
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
         factoryBean.setDataSource(dataSource);
-        factoryBean.setPackagesToScan("com.example.lesson15");
+        factoryBean.setPackagesToScan("ru.rtu_mirea.practice15");
         Properties properties = new Properties();
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         factoryBean.setHibernateProperties(properties);

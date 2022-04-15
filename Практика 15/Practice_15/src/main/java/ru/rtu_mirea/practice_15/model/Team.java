@@ -23,12 +23,12 @@ public class Team {
 
     @Column(name = "creationDate")
     @NotNull
-    private Date creationDate;
+    private String creationDate;
 
     public Team() {
     }
 
-    public Team(String name, Date creationDate) {
+    public Team(String name, String creationDate) {
         this.name = name;
         this.creationDate = creationDate;
     }
@@ -41,11 +41,11 @@ public class Team {
         this.name = name;
     }
 
-    public Date getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 
