@@ -9,7 +9,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table(name = "team")
+@Table(name = "DB_for_team")
 public class Team {
     @Id
     @GeneratedValue(generator = "UUID")

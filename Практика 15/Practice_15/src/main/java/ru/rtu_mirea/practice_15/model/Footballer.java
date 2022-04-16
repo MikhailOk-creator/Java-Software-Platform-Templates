@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table(name = "footballer")
+@Table(name = "DB_for_Footballer")
 public class Footballer {
     @Id
     @GeneratedValue(generator = "UUID")
