@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class FootballerService {
@@ -44,16 +43,5 @@ public class FootballerService {
 
     public Footballer getFootballer(String first_name, String last_name) {
         return session.createQuery("* from Footballer f where f.firstName and f.lastName = '" + first_name + last_name + "'", Footballer.class).getSingleResult();
-    }
-
-    public void deleteFootballer(UUID id) {
-
-        session.beginTransaction();
-
-        Footballer temp = session.load(Footballer.class, id);
-        session.delete(temp);
-
-        session.getTransaction().commit();
-
     }
 }

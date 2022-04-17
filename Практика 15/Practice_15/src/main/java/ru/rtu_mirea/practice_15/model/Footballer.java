@@ -8,13 +8,9 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table(name = "DB_for_Footballer")
+@Table(name = "db_for_footballers")
 public class Footballer {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id", updatable = false, nullable = false)
-    private UUID id;
 
     @Column(name = "first_name")
     @NotNull

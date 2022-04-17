@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.rtu_mirea.practice_15.model.Team;
 import ru.rtu_mirea.practice_15.service.TeamService;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,7 +14,7 @@ public class TeamController {
     @Autowired
     private TeamService service;
 
-    @PostMapping("/team")
+    @PostMapping("/newteam")
     public void post(@RequestBody Team team) {
         service.addTeam(team);
     }
@@ -23,13 +24,4 @@ public class TeamController {
         return service.getTeams();
     }
 
-    @GetMapping("/team/{name}/{creationDate}")
-    public List<Team> get(@PathVariable String name, @PathVariable String creationDate) {
-        return service.getTeam(name, creationDate);
-    }
-
-    @DeleteMapping("/team/{id}")
-    public void delete(@PathVariable UUID id) {
-        service.deleteTeam(id);
-    }
 }

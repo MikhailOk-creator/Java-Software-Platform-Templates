@@ -9,13 +9,9 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table(name = "DB_for_team")
+@Table(name = "db_for_teams")
 public class Team {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id", updatable = false, nullable = false)
-    private UUID id;
 
     @Column(name = "name")
     @NotNull
@@ -23,12 +19,12 @@ public class Team {
 
     @Column(name = "creationDate")
     @NotNull
-    private String creationDate;
+    private Date creationDate;
 
     public Team() {
     }
 
-    public Team(String name, String creationDate) {
+    public Team(String name, Date creationDate) {
         this.name = name;
         this.creationDate = creationDate;
     }
@@ -41,11 +37,11 @@ public class Team {
         this.name = name;
     }
 
-    public String getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(String creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 
