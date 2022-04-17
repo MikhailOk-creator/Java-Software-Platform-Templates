@@ -22,10 +22,10 @@ public class FootballerController {
         return service.getFootballers();
     }
 
-    @GetMapping("/footballer/{first_name}/{last_name}") // это надо доработать
-    /*public Footballer get(@PathVariable UUID id, @PathVariable String first_name, @PathVariable String last_name) {
+    @GetMapping("/footballer/{first_name}/{last_name}")
+    public Footballer get(@PathVariable String first_name, @PathVariable String last_name) {
         return service.getFootballer(first_name, last_name);
-    }*/
+    }
 
     @DeleteMapping("/footballer/{id}")
     public void delete(@PathVariable UUID id) {

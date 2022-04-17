@@ -23,10 +23,10 @@ public class TeamController {
         return service.getTeams();
     }
 
-    /*@GetMapping("/team/{name}/{creationDate}")
-    public List<Team> get(@PathVariable UUID id, @PathVariable String name, @PathVariable String creationDate) {
+    @GetMapping("/team/{name}/{creationDate}")
+    public List<Team> get(@PathVariable String name, @PathVariable String creationDate) {
         return service.getTeam(name, creationDate);
-    }*/
+    }
 
     @DeleteMapping("/team/{id}")
     public void delete(@PathVariable UUID id) {

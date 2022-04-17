@@ -42,10 +42,9 @@ public class TeamService {
     public List<Team> getTeams() {
         return session.createQuery("select t from Team t", Team.class).list();
     }
-/*
     public List<Team> getTeam(String name, String creationDate) {
-        return session.createQuery("select t from Team t where t.id ='" + id + "'", Team.class).list();
-    }*/
+        return session.createQuery("* t from Team t where t.name and t.creatiomDate ='" + name + creationDate + "'", Team.class).list();
+    }
 
     public void deleteTeam(Team team) {
         session.beginTransaction();

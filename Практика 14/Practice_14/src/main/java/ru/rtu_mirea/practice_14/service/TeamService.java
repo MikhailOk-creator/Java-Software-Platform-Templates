@@ -1,6 +1,6 @@
 package ru.rtu_mirea.practice_14.service;
 
-import ru.rtu_mirea.practice_14.Team;
+import ru.rtu_mirea.practice_14.model.Team;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

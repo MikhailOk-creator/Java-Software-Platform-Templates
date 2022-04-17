@@ -1,4 +1,4 @@
-package ru.rtu_mirea.practice_14;
+package ru.rtu_mirea.practice_14.model;
 
 import java.util.Objects;
 

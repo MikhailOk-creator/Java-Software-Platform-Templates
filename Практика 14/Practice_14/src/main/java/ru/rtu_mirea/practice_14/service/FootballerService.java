@@ -1,6 +1,6 @@
 package ru.rtu_mirea.practice_14.service;
 
-import ru.rtu_mirea.practice_14.Footballer;
+import ru.rtu_mirea.practice_14.model.Footballer;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
