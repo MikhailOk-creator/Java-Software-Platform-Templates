@@ -37,11 +37,11 @@ public class FootballerService {
         session.getTransaction().commit();
     }
 
-    public List<Footballer> getFootballers() {
+    /*public List<Footballer> getFootballers() {
         return session.createQuery("select f from Footballer f", Footballer.class).list();
     }
 
     public Footballer getFootballer(String first_name, String last_name) {
         return session.createQuery("* from Footballer f where f.firstName and f.lastName = '" + first_name + last_name + "'", Footballer.class).getSingleResult();
-    }
+    }*/
 }

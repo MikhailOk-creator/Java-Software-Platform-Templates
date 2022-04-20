@@ -13,7 +13,7 @@ import java.util.UUID;
 public class TeamController {
     @Autowired
     private TeamService service;
-
+/*
     @PostMapping("/newteam")
     public void post(@RequestBody Team team) {
         service.addTeam(team);
@@ -22,6 +22,6 @@ public class TeamController {
     @GetMapping("/teams")
     public List<Team> getAll() {
         return service.getTeams();
-    }
+    }*/
 
 }

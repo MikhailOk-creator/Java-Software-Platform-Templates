@@ -13,7 +13,7 @@ public class FootballerController {
     @Autowired
     private FootballerService service;
 
-    @PostMapping("/newfootballer")
+    /*@PostMapping("/newfootballer")
     public void post(@RequestBody Footballer footballer) {
         service.addFootballer(footballer);
     }
@@ -21,5 +21,5 @@ public class FootballerController {
     @GetMapping("/footballers")
     public List<Footballer> getAll() {
         return service.getFootballers();
-    }
+    }*/
 }

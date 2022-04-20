@@ -39,7 +39,7 @@ public class TeamService {
         session.getTransaction().commit();
     }
 
-    public List<Team> getTeams() {
+  /*  public List<Team> getTeams() {
         return session.createQuery("select t from Team t", Team.class).list();
     }
     public List<Team> getTeams(String name, Date creationDate) {
@@ -56,5 +56,5 @@ public class TeamService {
         }
 
         session.getTransaction().commit();
-    }
+    }*/
 }
