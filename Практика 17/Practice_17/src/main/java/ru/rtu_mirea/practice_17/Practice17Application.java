@@ -1,15 +1,13 @@
-package com.example.test11;
+package ru.rtu_mirea.practice_17;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Test11Application {
+public class Practice17Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(Test11Application.class, args);
-        Student student = new Student();
-        student.Get();
+        SpringApplication.run(Practice17Application.class, args);
     }
 
 }
