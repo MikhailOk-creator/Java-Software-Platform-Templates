@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @Controller
+@RequestMapping("/footballer")
 public class FootballerController {
     /*@Autowired
     private FootballerRepo footballerRepo;
@@ -52,27 +53,27 @@ public class FootballerController {
     @Autowired
     private FootballerService service;
 
-    @PostMapping("/footballer")
+    @PostMapping("/add")
     public void add(@RequestBody Footballer footballer) {
         service.addFootballer(footballer);
     }
 
-    @GetMapping("/footballers")
+    @GetMapping("/all")
     public List<Footballer> getAll() {
         return service.getFootballers();
     }
 
-    @GetMapping("/footballer/{id}")
+    @GetMapping("/{id}")
     public List<Footballer> get(@PathVariable UUID id) {
         return service.getFootballer(id);
     }
 
-    @DeleteMapping("/footballer/{id}")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable UUID id) {
         service.deleteFootballer(id);
     }
 
-    @GetMapping(value = "/footballer/{footballerId}/team")
+    @GetMapping(value = "/{footballerId}/team")
     public @ResponseBody Team getFootballerTeam(@PathVariable("footballerId") Long footballerId) {
         return service.getFootballerByTeam(footballerId);
     }
