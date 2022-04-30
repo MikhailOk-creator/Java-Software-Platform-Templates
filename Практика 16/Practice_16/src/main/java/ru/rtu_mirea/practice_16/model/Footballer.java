@@ -6,7 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "footballers")
+@Table(name = "footballer")
 @Getter
 @Setter
 public class Footballer {
@@ -30,4 +30,6 @@ public class Footballer {
         this.first_name = first_name;
         this.last_name = last_name;
     }
+
+
 }

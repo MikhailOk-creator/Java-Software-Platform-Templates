@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import ru.rtu_mirea.practice_16.model.Footballer;
 import ru.rtu_mirea.practice_16.model.Team;
 
 import javax.annotation.PostConstruct;
@@ -36,25 +37,15 @@ public class TeamService {
     }
 
     public List<Team> getTeams() {
-        return session.createQuery("select t from Team t", Team.class).list();
+        List<Team> teams = session.createQuery("select t from Team t", Team.class).getResultList();
+        return teams;
     }
 
-    public List<Team> getTeam(UUID id) {
-        return session.createQuery("select t from Team t where t.id ='" + id + "'", Team.class).list();
+    public Team getTeam(Long id) {
+        return session.createQuery("from Team where t.id = :id", Team.class).getSingleResult();
     }
 
-    public void deleteTeam(Team team) {
-        session.beginTransaction();
-
-        List<Team> query = session.createQuery("select t from Team t where t.name = '" + team.getName() + "'" + " and t.creationDate = '" + team.getCreationDate() + "'", Team.class).list();
-        for (Team t : query) {
-            session.delete(t);
-        }
-
-        session.getTransaction().commit();
-    }
-
-    public void deleteTeam(UUID id) {
+    public void deleteTeam(Long id) {
         session.beginTransaction();
 
         Team temp = session.load(Team.class, id);

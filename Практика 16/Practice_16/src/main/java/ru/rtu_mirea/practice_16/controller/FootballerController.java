@@ -59,17 +59,17 @@ public class FootballerController {
     }
 
     @GetMapping("/all")
-    public List<Footballer> getAll() {
+    public @ResponseBody List<Footballer> getAll() {
         return service.getFootballers();
     }
 
     @GetMapping("/{id}")
-    public List<Footballer> get(@PathVariable UUID id) {
+    public @ResponseBody Footballer get(@PathVariable("id") Long id) {
         return service.getFootballer(id);
     }
 
     @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable UUID id) {
+    public void delete(@PathVariable Long id) {
         service.deleteFootballer(id);
     }
 

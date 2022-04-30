@@ -11,32 +11,28 @@ import java.util.List;
 import java.util.UUID;
 
 @Controller
+@RequestMapping("/team")
 public class TeamController {
     @Autowired
     private TeamService service;
 
-    @PostMapping("/team")
+    @PostMapping("/add")
     public void post(@RequestBody Team team) {
         service.addTeam(team);
     }
 
-    @GetMapping("/teams")
+    @GetMapping("/all")
     public List<Team> getAll() {
         return service.getTeams();
     }
 
-    @GetMapping("/team/{id}")
-    public List<Team> get(@PathVariable UUID id) {
+    @GetMapping("/{id}")
+    public Team get(@PathVariable Long id) {
         return service.getTeam(id);
     }
 
-    @DeleteMapping("/team/{id}")
-    public void delete(@PathVariable UUID id) {
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable Long id) {
         service.deleteTeam(id);
-    }
-    @GetMapping("/ADDTeam/{name}/{creationDate}")
-    public void adds(@PathVariable String name, @PathVariable Date creationDate) {
-        Team t = new Team(name, creationDate);
-        service.addTeam(t);
     }
 }

@@ -37,34 +37,24 @@ public class FootballerService {
     }
 
     public List<Footballer> getFootballers() {
-        return session.createQuery("select f from Footballer f", Footballer.class).list();
+        List<Footballer> footballers = session.createQuery("select f from Footballer f", Footballer.class).getResultList();
+        return  footballers;
     }
 
-    public List<Footballer> getFootballer(UUID id) {
-        return session.createQuery("select f from Footballer f where f.id ='" + id + "'", Footballer.class).list();
+    public Footballer getFootballer(Long id) {
+        return session.createQuery("from Footballer where f.id = :id", Footballer.class).getSingleResult();
     }
 
-    public void deleteFootballer(Footballer footballer) {
-        session.beginTransaction();
-
-        List<Footballer> query = session.createQuery("select f from Footballer f where f.first_name = '" + footballer.getFirst_name() + "'" + " and f.last_name = '" + footballer.getLast_name() + "'", Footballer.class).list();
-        for (Footballer f : query) {
-            session.delete(f);
-        }
-
-        session.getTransaction().commit();
+    public Team getFootballerByTeam(Long id) {
+        return session.createQuery("from Footballer where f.id = :id", Footballer.class).setParameter("id", id).getSingleResult().getTeam();
     }
 
-    public void deleteFootballer(UUID id) {
+    public void deleteFootballer(Long id) {
         session.beginTransaction();
 
         Footballer temp = session.load(Footballer.class, id);
         session.delete(temp);
 
         session.getTransaction().commit();
-    }
-
-    public Team getFootballerByTeam(Long id) {
-        return session.createQuery("from Footballer where id = :id", Footballer.class).setParameter("id", id).getSingleResult().getTeam();
     }
 }
