@@ -11,8 +11,10 @@ import ru.rtu_mirea.practice_17.model.Team;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.UUID;
@@ -41,25 +43,15 @@ public class TeamService {
     }
 
     public List<Team> getTeams() {
-        return session.createQuery("select t from Team t", Team.class).list();
+        List<Team> teams = session.createQuery("select t from Team t", Team.class).getResultList();
+        return teams;
     }
 
-    public List<Team> getTeam(UUID id) {
-        return session.createQuery("select t from Team t where t.id ='" + id + "'", Team.class).list();
+    public Team getTeam(Long id) {
+        return session.createQuery("from Team where t.id = :id", Team.class).getSingleResult();
     }
 
-    public void deleteTeam(Team team) {
-        session.beginTransaction();
-
-        List<Team> query = session.createQuery("select t from Team t where t.name = '" + team.getName() + "'" + " and t.creationDate = '" + team.getCreationDate() + "'", Team.class).list();
-        for (Team t : query) {
-            session.delete(t);
-        }
-
-        session.getTransaction().commit();
-    }
-
-    public void deleteTeam(UUID id) {
+    public void deleteTeam(Long id) {
         session.beginTransaction();
 
         Team temp = session.load(Team.class, id);
@@ -68,12 +60,17 @@ public class TeamService {
         session.getTransaction().commit();
     }
 
-    public List SortCriteria (String Criteria) {
+    public List<Team> SortCriteria (String Criteria) {
         CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Footballer> footballerCriteriaQuery = builder.createQuery(Footballer.class);
-        Root<Footballer> root = footballerCriteriaQuery.from(Footballer.class);
-        footballerCriteriaQuery.select(root).orderBy(builder.asc(root.get(Criteria)));
-        Query query = session.createQuery(footballerCriteriaQuery);
+        CriteriaQuery<Team> teamCriteriaQuery = builder.createQuery(Team.class);
+
+        Root<Team> team = teamCriteriaQuery.from(Team.class);
+        /*teamCriteriaQuery.select(team).orderBy(builder.asc(team.get(Criteria)));
+        Query query = session.createQuery(teamCriteriaQuery);*/
+        Predicate CriteriaPredicate = builder.equal(team.get("Criteria"), Criteria);
+        teamCriteriaQuery.where(CriteriaPredicate);
+        TypedQuery<Team> query = session.createQuery(teamCriteriaQuery);
+
         return query.getResultList();
     }
 }
