@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import ru.rtu_mirea.practice_18.model.Footballer;
 import ru.rtu_mirea.practice_18.model.Team;
+import ru.rtu_mirea.practice_18.repo.FootballerRepo;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -14,6 +15,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.UUID;
@@ -23,62 +25,36 @@ import java.util.UUID;
 @Service
 public class FootballerService {
     private final SessionFactory sessionFactory;
-    private Session session;
 
-    @PostConstruct
-    public void init() {
-        session = sessionFactory.openSession();
-    }
-
-    @PreDestroy
-    public void unSession() {
-        session.close();
-    }
+    private FootballerRepo footballerRepo;
 
     public void addFootballer(Footballer footballer) {
-        session.beginTransaction();
-        session.saveOrUpdate(footballer);
-        session.getTransaction().commit();
+        footballerRepo.save(footballer);
     }
 
     public List<Footballer> getFootballers() {
-        return session.createQuery("select f from Footballer f", Footballer.class).list();
+        return  footballerRepo.findAll();
     }
 
-    public List<Footballer> getFootballer(UUID id) {
-        return session.createQuery("select f from Footballer f where f.id ='" + id + "'", Footballer.class).list();
+    public Footballer getFootballer(Long id) {
+        return footballerRepo.getById(id);
     }
 
-    public void deleteFootballer(Footballer footballer) {
-        session.beginTransaction();
-
-        List<Footballer> query = session.createQuery("select f from Footballer f where f.first_name = '" + footballer.getFirst_name() + "'" + " and f.last_name = '" + footballer.getLast_name() + "'", Footballer.class).list();
-        for (Footballer f : query) {
-            session.delete(f);
-        }
-
-        session.getTransaction().commit();
+    public boolean update(Footballer footballer, long id) {
+        footballer.setId(id);
+        footballerRepo.save(footballer);
+        return true;
     }
 
-    public void deleteFootballer(UUID id) {
-        session.beginTransaction();
-
-        Footballer temp = session.load(Footballer.class, id);
-        session.delete(temp);
-
-        session.getTransaction().commit();
+    public boolean deleteFootballer(Long id) {
+        footballerRepo.deleteById(id);
+        return true;
     }
 
-    public Team getFootballerByTeam(Long id) {
-        return session.createQuery("from Footballer where id = :id", Footballer.class).setParameter("id", id).getSingleResult().getTeam();
+    public List<Footballer> findFootballerByFirstName (String first_name) {
+        return footballerRepo.findAllByFirst_name(first_name);
     }
-
-    public List SortCriteria (String Criteria) {
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Footballer> footballerCriteriaQuery = builder.createQuery(Footballer.class);
-        Root<Footballer> root = footballerCriteriaQuery.from(Footballer.class);
-        footballerCriteriaQuery.select(root).orderBy(builder.asc(root.get(Criteria)));
-        Query query = session.createQuery(footballerCriteriaQuery);
-        return query.getResultList();
+    public List<Footballer> findFootballerByLastName(String last_name) {
+        return footballerRepo.findAllByLast_name(last_name);
     }
 }

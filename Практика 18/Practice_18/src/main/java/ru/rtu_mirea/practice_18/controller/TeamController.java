@@ -1,6 +1,8 @@
 package ru.rtu_mirea.practice_18.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.rtu_mirea.practice_18.model.Team;
@@ -11,36 +13,53 @@ import java.util.List;
 import java.util.UUID;
 
 @Controller
+@RequestMapping(value="/team")
 public class TeamController {
     @Autowired
     private TeamService service;
 
-    @PostMapping("/team")
-    public void post(@RequestBody Team team) {
+    @PostMapping("/add")
+    public ResponseEntity<?> post(@RequestBody Team team) {
         service.addTeam(team);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("/teams")
-    public List<Team> getAll() {
-        return service.getTeams();
+    @GetMapping("/all")
+    public ResponseEntity<List<Team>> getAll() {
+        final List<Team> teams = service.getTeams();
+        return teams != null && !teams.isEmpty()
+                ? new ResponseEntity<>(teams, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/team/{id}")
-    public List<Team> get(@PathVariable UUID id) {
-        return service.getTeam(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<Team> get(@PathVariable Long id) {
+        final Team team = service.getTeam(id);
+        return team != null
+                ? new ResponseEntity<>(team, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/team/{id}")
-    public void delete(@PathVariable UUID id) {
-        service.deleteTeam(id);
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        final boolean deleted = service.deleteTeam(id);
+        return deleted
+                ? new ResponseEntity<>(HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
-    @GetMapping("/ADDTeam/{name}/{creationDate}")
-    public void adds(@PathVariable String name, @PathVariable Date creationDate) {
-        Team t = new Team(name, creationDate);
-        service.addTeam(t);
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<List<Team>> findTeamByName(@PathVariable(name="name") String name) {
+        final List<Team> teams = service.findTeamByName(name);
+        return teams != null && !teams.isEmpty()
+                ? new ResponseEntity<>(teams, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-    @GetMapping("/team/sort_t/{c}")
-    public List sort_t(@PathVariable("c") String Criteria) {
-        return service.SortCriteria(Criteria);
+    @GetMapping("/creationDate/{creationDate}")
+    public ResponseEntity<List<Team>> findTeamByCreationDate(@PathVariable(name="creationDate") Date creationDate) {
+        final List<Team> teams = service.findTeamByCreationDate(creationDate);
+        return teams != null && !teams.isEmpty()
+                ? new ResponseEntity<>(teams, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

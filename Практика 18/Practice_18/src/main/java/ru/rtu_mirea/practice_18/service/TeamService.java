@@ -3,77 +3,54 @@ package ru.rtu_mirea.practice_18.service;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import ru.rtu_mirea.practice_18.model.Footballer;
 import ru.rtu_mirea.practice_18.model.Team;
+import ru.rtu_mirea.practice_18.repo.TeamRepo;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
 @Service
 public class TeamService {
-    private final SessionFactory sessionFactory;
-    private Session session;
 
-    @PostConstruct
-    public void init() {
-        session = sessionFactory.openSession();
-    }
-
-    @PreDestroy
-    public void unSession() {
-        session.close();
+    private TeamRepo teamRepo;
+    @Autowired
+    TeamService(TeamRepo teamRepo) {
+        this.teamRepo = teamRepo;
     }
 
     public void addTeam(Team team) {
-        session.beginTransaction();
-        session.saveOrUpdate(team);
-        session.getTransaction().commit();
+        teamRepo.save(team);
     }
 
     public List<Team> getTeams() {
-        return session.createQuery("select t from Team t", Team.class).list();
+        return teamRepo.findAll();
     }
 
-    public List<Team> getTeam(UUID id) {
-        return session.createQuery("select t from Team t where t.id ='" + id + "'", Team.class).list();
+    public Team getTeam(Long id) {
+        return teamRepo.getById(id);
     }
 
-    public void deleteTeam(Team team) {
-        session.beginTransaction();
-
-        List<Team> query = session.createQuery("select t from Team t where t.name = '" + team.getName() + "'" + " and t.creationDate = '" + team.getCreationDate() + "'", Team.class).list();
-        for (Team t : query) {
-            session.delete(t);
-        }
-
-        session.getTransaction().commit();
+    public boolean deleteTeam(Long id) {
+        teamRepo.deleteById(id);
+        return true;
     }
 
-    public void deleteTeam(UUID id) {
-        session.beginTransaction();
-
-        Team temp = session.load(Team.class, id);
-        session.delete(temp);
-
-        session.getTransaction().commit();
+    public List<Team> findTeamByName(String name) {
+        return teamRepo.findAllByName(name);
     }
-
-    public List SortCriteria (String Criteria) {
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Footballer> footballerCriteriaQuery = builder.createQuery(Footballer.class);
-        Root<Footballer> root = footballerCriteriaQuery.from(Footballer.class);
-        footballerCriteriaQuery.select(root).orderBy(builder.asc(root.get(Criteria)));
-        Query query = session.createQuery(footballerCriteriaQuery);
-        return query.getResultList();
+    public List<Team> findTeamByCreationDate(Date creationDate) {
+        return teamRepo.findAllByCreationDate(creationDate);
     }
 }

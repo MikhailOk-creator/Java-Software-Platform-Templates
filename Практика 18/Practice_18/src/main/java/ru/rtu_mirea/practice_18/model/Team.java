@@ -1,20 +1,24 @@
 package ru.rtu_mirea.practice_18.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "team")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Team {
     @Id
-    @SequenceGenerator(name = "users_seq", sequenceName = "users_sequence", allocationSize = 1)
-    @GeneratedValue(generator = "users_seq", strategy = GenerationType.SEQUENCE)
+    /*@SequenceGenerator(name = "users_seq", sequenceName = "users_sequence", allocationSize = 1)
+    @GeneratedValue(generator = "users_seq", strategy = GenerationType.SEQUENCE)*/
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
     @Column(name = "name")
@@ -22,14 +26,13 @@ public class Team {
     @Column(name = "creationDate")
     private Date creationDate;
 
-    @OneToMany(mappedBy = "team")
-    private List<Footballer> footballerList;
-
-    public Team() {
-    }
-
     public Team(String name, Date creationDate) {
         this.name = name;
         this.creationDate = creationDate;
     }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="footballer_id")
+    @JsonIgnore
+    private Footballer footballer;
 }
