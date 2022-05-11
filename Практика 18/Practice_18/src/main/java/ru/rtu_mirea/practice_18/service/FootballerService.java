@@ -1,32 +1,22 @@
 package ru.rtu_mirea.practice_18.service;
 
-import lombok.RequiredArgsConstructor;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.stereotype.Component;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.rtu_mirea.practice_18.model.Footballer;
-import ru.rtu_mirea.practice_18.model.Team;
 import ru.rtu_mirea.practice_18.repo.FootballerRepo;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import java.util.List;
-import java.util.UUID;
 
-@Component
-@RequiredArgsConstructor
 @Service
+@Slf4j
 public class FootballerService {
-    private final SessionFactory sessionFactory;
-
     private FootballerRepo footballerRepo;
+
+    @Autowired
+    FootballerService(FootballerRepo footballerRepo) {
+        this.footballerRepo = footballerRepo;
+    }
 
     public void addFootballer(Footballer footballer) {
         footballerRepo.save(footballer);

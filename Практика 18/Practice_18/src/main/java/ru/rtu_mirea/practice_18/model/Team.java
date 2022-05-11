@@ -24,9 +24,9 @@ public class Team {
     @Column(name = "name")
     private String name;
     @Column(name = "creationDate")
-    private Date creationDate;
+    private String creationDate;
 
-    public Team(String name, Date creationDate) {
+    public Team(String name, String creationDate) {
         this.name = name;
         this.creationDate = creationDate;
     }

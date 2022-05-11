@@ -1,27 +1,15 @@
 package ru.rtu_mirea.practice_18.controller;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.rtu_mirea.practice_18.model.Footballer;
-import ru.rtu_mirea.practice_18.model.Team;
 import ru.rtu_mirea.practice_18.service.FootballerService;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import java.util.List;
-import java.util.UUID;
 
-@Controller
+@RestController
 @RequestMapping("/footballer")
 public class FootballerController {
     private FootballerService service;
