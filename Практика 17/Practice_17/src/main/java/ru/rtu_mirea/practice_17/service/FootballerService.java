@@ -71,7 +71,7 @@ public class FootballerService {
         Root<Footballer> footballer = footballerCriteriaQuery.from(Footballer.class);
         /*footballerCriteriaQuery.select(root).orderBy(builder.asc(root.get(Criteria)));
         Query query = session.createQuery(footballerCriteriaQuery);*/
-        Predicate CriteriaPredicate = builder.equal(footballer.get("Criteria"), Criteria);
+        Predicate CriteriaPredicate = builder.equal(footballer.get(Criteria), Criteria);
         footballerCriteriaQuery.where(CriteriaPredicate);
         TypedQuery<Footballer> query = session.createQuery(footballerCriteriaQuery);
 
