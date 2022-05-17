@@ -22,7 +22,7 @@ public class FootballerController {
     @PostMapping("/add")
     public ResponseEntity<?> add(@RequestBody Footballer footballer) {
         service.addFootballer(footballer);
-        return  new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/all")

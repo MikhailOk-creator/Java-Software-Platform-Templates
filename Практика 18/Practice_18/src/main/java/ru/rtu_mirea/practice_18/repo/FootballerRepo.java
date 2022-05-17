@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface FootballerRepo extends JpaRepository<Footballer, Long> {
-    List<Footballer> findAllByLast_name(String last_name);
-    List<Footballer> findAllByFirst_name(String first_name);
+    List<Footballer> findAllByLastName(String lastName);
+    List<Footballer> findAllByFirstName(String firstName);
 }

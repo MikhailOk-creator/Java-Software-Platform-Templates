@@ -7,16 +7,15 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name = "team")
+@Table(name = "teams")
 @Getter
 @Setter
 @NoArgsConstructor
 public class Team {
     @Id
-    /*@SequenceGenerator(name = "users_seq", sequenceName = "users_sequence", allocationSize = 1)
-    @GeneratedValue(generator = "users_seq", strategy = GenerationType.SEQUENCE)*/
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
@@ -26,13 +25,7 @@ public class Team {
     @Column(name = "creationDate")
     private String creationDate;
 
-    public Team(String name, String creationDate) {
-        this.name = name;
-        this.creationDate = creationDate;
-    }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="footballer_id")
-    @JsonIgnore
-    private Footballer footballer;
+    @Column(name="footballer_id")
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Footballer> footballers;
 }
