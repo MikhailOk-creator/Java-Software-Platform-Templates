@@ -43,12 +43,12 @@ public class FootballerService {
         return true;
     }
 
-    public List<Footballer> findFootballerByFirstName (String first_name) {
-        log.info("Find footballers by first name = {}", first_name);
-        return footballerRepo.findAllByFirst_name(first_name);
+    public List<Footballer> findFootballerByFirstName (String firstName) {
+        log.info("Find footballers by first name = {}", firstName);
+        return footballerRepo.findAllByFirstName(firstName);
     }
-    public List<Footballer> findFootballerByLastName(String last_name) {
-        log.info("Find footballers by last name = {}", last_name);
-        return footballerRepo.findAllByLast_name(last_name);
+    public List<Footballer> findFootballerByLastName(String lastName) {
+        log.info("Find footballers by last name = {}", lastName);
+        return footballerRepo.findAllByFirstName(lastName);
     }
 }
