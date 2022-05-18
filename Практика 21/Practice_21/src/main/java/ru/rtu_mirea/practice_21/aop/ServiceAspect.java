@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 @Aspect
 @Slf4j
-public class ServerAspect {
+public class ServiceAspect {
 
     @Around("ru.rtu_mirea.practice_21.aop.Pointcuts.servicesMethods()")
     public Object measureMethodExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
