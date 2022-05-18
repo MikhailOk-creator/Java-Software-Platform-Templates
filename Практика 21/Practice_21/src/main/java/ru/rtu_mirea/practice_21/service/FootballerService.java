@@ -21,8 +21,8 @@ public class FootballerService {
         log.info("Added footballer {}", footballer);
         mail.sendEmail("mikhail.okhapkin@yandex.ru", "Spring Boot Info",
                 "Footballer "
-                        + footballer.getFirst_name() + " "
-                        + footballer.getLast_name() + " added");
+                        + footballer.getFirstName() + " "
+                        + footballer.getLastName() + " added");
         footballerRepo.save(footballer);
     }
 
@@ -49,18 +49,18 @@ public class FootballerService {
 
         mail.sendEmail("mikhail.okhapkin@yandex.ru", "Spring Boot Info",
                 "Footballer "
-                        + WhichFootballerWillBeDeleted.getFirst_name() + " "
-                        + WhichFootballerWillBeDeleted.getLast_name() + " deleted");
+                        + WhichFootballerWillBeDeleted.getFirstName() + " "
+                        + WhichFootballerWillBeDeleted.getLastName() + " deleted");
         footballerRepo.deleteById(id);
         return true;
     }
 
     public List<Footballer> findFootballerByFirstName (String first_name) {
         log.info("Find footballers by first name = {}", first_name);
-        return footballerRepo.findAllByFirst_name(first_name);
+        return footballerRepo.findAllByFirstName(first_name);
     }
     public List<Footballer> findFootballerByLastName(String last_name) {
         log.info("Find footballers by last name = {}", last_name);
-        return footballerRepo.findAllByLast_name(last_name);
+        return footballerRepo.findAllByLastName(last_name);
     }
 }
