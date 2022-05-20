@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class ServiceAspect {
 
-    @Around("ru.rtu_mirea.practice_21.aop.Pointcuts.servicesMethods()")
+    @Around("ru.rtu_mirea.practice_22.aop.Pointcuts.servicesMethods()")
     public Object measureMethodExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
         long start = System.nanoTime();
         Object retval = joinPoint.proceed();
