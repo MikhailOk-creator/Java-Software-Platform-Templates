@@ -14,8 +14,8 @@ public interface TeamRepo extends JpaRepository<Team, Long> {
 
     @Modifying
     @Query(value = "COPY postgres2.public.teams " +
-            "TO 'C:\\Users\\mikha\\Documents\\МИРЭА\\Шаблоны программных платформ языка Java\\Практики\\Практика 22\\Сохранённые таблицы\\teams.csv' " +
+            "TO 'D:\\My\\SaveTables\\teams.csv' " +
             "delimiter ',' " +
-            "csv header encoding 'UTF-8'", nativeQuery = true)
+            "csv header encoding 'UTF-8'", nativeQuery = true) // Файлы хранятся на стороннем накопителе
     void saveTeamsInFile();
 }

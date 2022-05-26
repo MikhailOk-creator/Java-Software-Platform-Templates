@@ -15,7 +15,7 @@ public interface FootballerRepo extends JpaRepository<Footballer, Long> {
 
     @Modifying
     @Query(value = "COPY postgres2.public.footballers " +
-            "TO 'C:\\Users\\mikha\\Documents\\МИРЭА\\Шаблоны программных платформ языка Java\\Практики\\Практика 22\\Сохранённые таблицы\\footballers.csv' " +
+            "TO 'D:\\My\\SaveTables\\footballers.csv' " +
             "delimiter ',' " +
             "csv header encoding 'UTF-8'", nativeQuery = true)
     void saveFootballerInFile();
