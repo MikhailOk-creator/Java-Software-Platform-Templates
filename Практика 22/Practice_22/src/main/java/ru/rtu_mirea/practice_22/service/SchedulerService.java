@@ -17,7 +17,7 @@ public class SchedulerService{
     @Autowired
     private FootballerRepo footballerRepo;
 
-    @Scheduled(cron = "0 */1 * * * *")
+    @Scheduled(cron = "*/30 * * * * *")
     @Transactional
     public void saveEntities() {
         teamRepo.saveTeamsInFile();

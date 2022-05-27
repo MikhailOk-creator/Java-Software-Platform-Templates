@@ -14,42 +14,6 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/footballer")
 public class FootballerController {
-    /*@Autowired
-    private FootballerRepo footballerRepo;
-    private FootballerService service;
-
-    @GetMapping(path="/all_footballers")
-    public String main(Map<String, Object> model) {
-        Iterable<Footballer> footballers = footballerRepo.findAll();
-        model.put("footballer", footballers);
-        return "main";
-    }
-
-    @GetMapping(path="/all")
-    public @ResponseBody Iterable<Footballer> getAllFootballers() {
-        // This returns a JSON or XML with the users
-        return footballerRepo.findAll();
-    }
-
-    @PostMapping(path="/add")
-    public @ResponseBody String add(@RequestParam (name = "first_name", required = false) String first_name, @RequestParam (name = "last_name", required = false) String last_name, Map<String, Object> model) {
-        Footballer f = new Footballer(first_name, last_name);
-        footballerRepo.save(f);
-
-        Iterable<Footballer> footballers = footballerRepo.findAll();
-        model.put("footballer", footballers);
-        *//*//*@ResponseBody means the returned String is the response, not a view name
-        // @RequestParam means it is a parameter from the GET or POST request
-
-        Footballer f = new Footballer(first_name, last_name);
-        footballerRepo.save(f);*//*
-        return "Saved";
-    }
-
-    @PostMapping("/footballer")
-    public void add(@RequestBody Footballer footballer) {
-        service.addF(footballer);
-    }*/
     @Autowired
     private FootballerService service;
 
